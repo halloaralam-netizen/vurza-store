@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VURZA — Ultra-Luxury Gaming Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F0D060;
+    --gold-dark: #9A7D20;
+    --black: #0a0a0a;
+    --black2: #111111;
+    --black3: #1a1a1a;
+    --black4: #222222;
+    --white: #f5f0e8;
+    --text-muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── PERSIAN PATTERN BACKGROUND ─── */
+  .persian-bg {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.035;
+    background-image:
+      repeating-linear-gradient(45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%),
+      repeating-linear-gradient(-45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%);
+    background-size: 30px 30px;
+  }
+
+  .persian-medallion {
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.06);
+    pointer-events: none; z-index: 0;
+  }
+  .persian-medallion::before, .persian-medallion::after {
+    content: '';
+    position: absolute; inset: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,55,0.05);
+  }
+  .persian-medallion::after { inset: 50px; }
+  .pm1 { top: -200px; right: -200px; }
+  .pm2 { bottom: -300px; left: -300px; }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+
+  /* ─── HEADER ─── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+
+  .logo-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 8px;
+    letter-spacing: 0.4em;
+    color: var(--gold-dark);
+    display: block;
+    text-transform: uppercase;
+    margin-top: -4px;
+    -webkit-text-fill-color: var(--gold-dark);
+  }
+
+  .cart-btn {
+    position: relative;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none; border-radius: 4px;
+    padding: 8px 18px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 0.15em;
+    color: var(--black); font-weight: 700;
+    cursor: pointer; transition: all 0.3s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cart-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,175,55,0.35); }
+  .cart-count {
+    position: absolute; top: -6px; right: -6px;
+    background: #e74c3c; color: white;
+    border-radius: 50%; width: 18px; height: 18px;
+    font-size: 10px; font-family: 'Cinzel', serif;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 92vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 24px 40px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(212,175,55,0.07) 0%, transparent 70%);
+  }
+
+  .hero-ornament {
+    font-size: clamp(60px, 15vw, 120px);
+    line-height: 1;
+    color: var(--gold);
+    opacity: 0.12;
+    position: absolute;
+    font-family: 'Cinzel Decorative', cursive;
+    top: 10%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .hero-tag {
+    font-family: 'Cinzel', serif;
+    font-size: 10px; letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    border: 1px solid rgba(212,175,55,0.3);
+    padding: 6px 20px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(48px, 12vw, 100px);
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 40%, var(--gold-light) 60%, var(--gold) 80%, var(--gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 3vw, 22px);
+    color: rgba(245,240,232,0.55);
+    letter-spacing: 0.1em;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-line {
+    width: 120px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 48px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .scroll-indicator {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .scroll-indicator span {
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.4em; color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  .scroll-dot {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION ─── */
+  section {
+    position: relative; z-index: 1;
+    padding: 80px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-game-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.5em;
+    color: var(--gold);
+    border: 1px solid rgba(212,175,55,0.25);
+    padding: 6px 18px; margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(28px, 6vw, 46px);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .section-divider {
+    display: flex; align-items: center; gap: 16px;
+    justify-content: center; margin-bottom: 8px;
+  }
+
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; max-width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark));
+  }
+  .section-divider::after { background: linear-gradient(90deg, var(--gold-dark), transparent); }
+
+  .divider-gem { color: var(--gold); font-size: 12px; }
+
+  /* ─── PRODUCT GRID ─── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .product-card {
+    position: relative;
+    background: linear-gradient(135deg, var(--black2), var(--black3));
+    border: 1px solid rgba(212,175,55,0.12);
+    border-radius: 2px;
+    padding: 28px 24px;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(212,175,55,0.04), transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+
+  .product-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0); transition: transform 0.4s;
+  }
+
+  .product-card:hover {
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.06);
+  }
+
+  .product-card:hover::before { opacity: 1; }
+  .product-card:hover::after { transform: scaleX(1); }
+
+  .card-corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: rgba(212,175,55,0.3);
+    border-style: solid;
+  }
+  .card-corner.tl { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+  .card-corner.br { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
+
+  .product-label {
+    font-family: 'Cinzel', serif;
+    font-size: 8px; letter-spacing: 0.45em;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .product-label::before { content: '◆'; font-size: 6px; }
+
+  .product-amount {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .product-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+  }
+
+  .product-price {
+    font-family: 'Cinzel', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .product-price .currency {
+    font-size: 13px; opacity: 0.7; margin-right: 2px;
+  }
+
+  .add-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.35);
+    color: var(--gold);
+    padding: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 10px; letter-spacing: 0.3em;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+
+  .add-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .add-btn span { position: relative; z-index: 1; }
+
+  .add-btn:hover { color: var(--black); border-color: var(--gold); }
+  .add-btn:hover::before { transform: translateX(0); }
+  .add-btn.added { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: var(--black); border-color: var(--gold); }
+  .add-btn.added::before { transform: translateX(0); }
+
+  /* ─── MEMBERSHIP CARDS ─── */
+  .membership-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .membership-card {
+    background: linear-gradient(135deg, rgba(212,175,55,0.06), rgba(10,10,10,0.9));
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 2px;
+    padding: 22px 20px;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .membership-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+  }
+
+  .membership-card:hover {
+    border-color: rgba(212,175,55,0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  }
+
+  .membership-icon { font-size: 28px; margin-bottom: 10px; }
+
+  .membership-name {
+    font-family: 'Cinzel', serif;
+    font-size: 12px; letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .membership-desc {
+    font-size: 12px; color: var(--text-muted);
+    font-style: italic; margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .membership-price {
+    font-family: 'Cinzel', serif;
+    font-size: 18px; color: var(--gold);
+    font-weight: 700; margin-bottom: 12px;
+  }
+
+  .mem-add-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(212,175,55,0.25);
+    color: var(--gold);
+    padding: 8px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.3em;
+    cursor: pointer; transition: all 0.3s;
+    text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+
+  .mem-add-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .mem-add-btn span { position: relative; z-index: 1; }
+  .mem-add-btn:hover { color: var(--black); }
+  .mem-add-btn:hover::before { transform: translateX(0); }
+  .mem-add-btn.added { background: linear-gradient(135deg, var(--gold-dark), var(--gold)); color: var(--black); }
+  .mem-add-btn.added::before { transform: translateX(0); }
+
+  /* ─── SECTION SEPARATOR ─── */
+  .ornate-separator {
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px; padding: 20px 24px;
+    position: relative; z-index: 1;
+  }
+
+  .ornate-separator .line {
+    flex: 1; max-width: 200px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent);
+  }
+
+  .ornate-separator .center {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 22px; color: rgba(212,175,55,0.3);
+    letter-spacing: 0.2em;
+  }
+
+  /* ─── CART SIDEBAR ─── */
+  .cart-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+  .cart-sidebar {
+    position: fixed; top: 0; right: 0; bottom: 0; z-index: 201;
+    width: min(420px, 100vw);
+    background: var(--black2);
+    border-left: 1px solid rgba(212,175,55,0.2);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex; flex-direction: column;
+  }
+  .cart-sidebar.open { transform: translateX(0); }
+
+  .cart-header {
+    padding: 24px 24px 20px;
+    border-bottom: 1px solid rgba(212,175,55,0.12);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .cart-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 18px; font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .close-cart {
+    background: none; border: 1px solid rgba(212,175,55,0.2);
+    color: var(--gold); width: 32px; height: 32px;
+    cursor: pointer; font-size: 18px; display: flex;
+    align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .close-cart:hover { background: rgba(212,175,55,0.1); }
+
+  .cart-items {
+    flex: 1; overflow-y: auto; padding: 20px 24px;
+  }
+
+  .cart-empty {
+    text-align: center; padding: 60px 20px;
+    color: var(--text-muted);
+    font-style: italic; font-size: 15px;
+  }
+
+  .cart-empty .empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.3; }
+
+  .cart-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(212,175,55,0.08);
+    animation: slideIn 0.3s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .cart-item-info { flex: 1; }
+
+  .cart-item-name {
+    font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 0.1em;
+    color: var(--white); margin-bottom: 4px;
+  }
+
+  .cart-item-game {
+    font-size: 11px; color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .cart-item-price {
+    font-family: 'Cinzel', serif;
+    font-size: 14px; color: var(--gold);
+    font-weight: 700; white-space: nowrap;
+  }
+
+  .cart-item-qty {
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .qty-btn {
+    background: none; border: 1px solid rgba(212,175,55,0.25);
+    color: var(--gold); width: 24px; height: 24px;
+    cursor: pointer; font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; border-radius: 2px;
+  }
+  .qty-btn:hover { background: rgba(212,175,55,0.15); }
+
+  .qty-num {
+    font-family: 'Cinzel', serif;
+    font-size: 13px; color: var(--white);
+    min-width: 20px; text-align: center;
+  }
+
+  .remove-item {
+    background: none; border: none;
+    color: rgba(231,76,60,0.6); cursor: pointer;
+    font-size: 16px; padding: 4px;
+    transition: color 0.2s;
+  }
+  .remove-item:hover { color: #e74c3c; }
+
+  .cart-footer {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(212,175,55,0.12);
+  }
+
+  .cart-total-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cart-total-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  .cart-total-amount {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 24px; color: var(--gold);
+    font-weight: 700;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none; color: var(--black);
+    padding: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 0.3em;
+    font-weight: 700; cursor: pointer;
+    transition: all 0.3s; text-transform: uppercase;
+  }
+  .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,175,55,0.35); }
+
+  /* ─── PAYMENT MODAL ─── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--black2);
+    border: 1px solid rgba(212,175,55,0.25);
+    border-radius: 2px;
+    width: min(500px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(30px) scale(0.97);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+  .modal::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .modal-header {
+    padding: 28px 28px 20px;
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .modal-title {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 20px; font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .close-modal {
+    background: none; border: 1px solid rgba(212,175,55,0.2);
+    color: var(--gold); width: 32px; height: 32px;
+    cursor: pointer; font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+  }
+  .close-modal:hover { background: rgba(212,175,55,0.1); }
+
+  .modal-body { padding: 24px 28px 28px; }
+
+  .modal-order-summary {
+    background: rgba(212,175,55,0.04);
+    border: 1px solid rgba(212,175,55,0.1);
+    padding: 16px; margin-bottom: 24px;
+  }
+
+  .modal-order-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.4em;
+    color: var(--gold-dark); margin-bottom: 10px;
+  }
+
+  .modal-order-items { font-size: 13px; color: var(--text-muted); line-height: 2; }
+  .modal-order-item { display: flex; justify-content: space-between; }
+
+  .modal-total {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(212,175,55,0.15);
+    padding-top: 10px; margin-top: 10px;
+  }
+
+  .modal-total-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px; letter-spacing: 0.2em; color: var(--text-muted);
+  }
+
+  .modal-total-amount {
+    font-family: 'Cinzel', serif;
+    font-size: 20px; color: var(--gold); font-weight: 700;
+  }
+
+  /* ─── QR CODE AREA ─── */
+  .qr-section { text-align: center; margin-bottom: 24px; }
+
+  .qr-label {
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.4em;
+    color: var(--gold-dark); margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .qr-frame {
+    display: inline-block;
+    padding: 12px;
+    border: 1px solid rgba(212,175,55,0.3);
+    background: white;
+    position: relative;
+  }
+
+  .qr-frame::before, .qr-frame::after {
+    content: '◆';
+    position: absolute;
+    color: var(--gold);
+    font-size: 10px;
+  }
+  .qr-frame::before { top: -8px; left: -8px; }
+  .qr-frame::after { bottom: -8px; right: -8px; }
+
+  .qr-image {
+    width: 180px; height: 180px;
+    object-fit: contain; display: block;
+  }
+
+  .qr-placeholder {
+    width: 180px; height: 180px;
+    background: #fff;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #000; font-size: 11px; text-align: center;
+    gap: 8px; padding: 16px;
+  }
+
+  .qr-placeholder-icon { font-size: 48px; }
+  .qr-placeholder-text { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.05em; color: #333; }
+
+  /* ─── UPI COPY ─── */
+  .upi-box {
+    background: rgba(212,175,55,0.05);
+    border: 1px solid rgba(212,175,55,0.2);
+    padding: 14px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; gap: 10px;
+  }
+
+  .upi-info { flex: 1; }
+  .upi-label { font-size: 10px; letter-spacing: 0.2em; color: var(--gold-dark); font-family: 'Cinzel', serif; margin-bottom: 4px; }
+  .upi-id { font-family: 'Cinzel', serif; font-size: 14px; color: var(--white); letter-spacing: 0.05em; }
+
+  .copy-btn {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border: none; color: var(--black);
+    padding: 8px 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.2em;
+    cursor: pointer; transition: all 0.3s;
+    white-space: nowrap; font-weight: 700;
+  }
+  .copy-btn:hover { transform: scale(1.03); }
+  .copy-btn.copied { background: #2ecc71; }
+
+  .payment-steps {
+    list-style: none; margin-bottom: 24px;
+  }
+
+  .payment-steps li {
+    display: flex; gap: 12px; padding: 8px 0;
+    border-bottom: 1px solid rgba(212,175,55,0.06);
+    font-size: 13px; color: var(--text-muted); align-items: flex-start;
+  }
+
+  .step-num {
+    font-family: 'Cinzel', serif;
+    font-size: 10px; color: var(--gold);
+    min-width: 20px; padding-top: 1px;
+  }
+
+  .whatsapp-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #128c7e, #25d366);
+    border: none; color: white;
+    padding: 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px; letter-spacing: 0.2em;
+    cursor: pointer; transition: all 0.3s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-weight: 700;
+  }
+  .whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.25); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid rgba(212,175,55,0.1);
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 24px; font-weight: 900;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .footer-tagline {
+    font-style: italic; font-size: 13px;
+    color: var(--text-muted); margin-bottom: 24px;
+  }
+
+  .footer-bottom {
+    font-family: 'Cinzel', serif;
+    font-size: 9px; letter-spacing: 0.3em;
+    color: rgba(212,175,55,0.3);
+    text-transform: uppercase;
+  }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    font-family: 'Cinzel', serif;
+    font-size: 10px; letter-spacing: 0.2em;
+    padding: 12px 24px;
+    z-index: 500;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    white-space: nowrap;
+    font-weight: 700;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ─── GAME BANNER ─── */
+  .game-banner {
+    position: relative;
+    background: linear-gradient(135deg, rgba(212,175,55,0.05), transparent);
+    border: 1px solid rgba(212,175,55,0.15);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    display: flex; align-items: center; gap: 20px;
+    overflow: hidden;
+  }
+
+  .game-banner::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(212,175,55,0.02) 0, rgba(212,175,55,0.02) 1px, transparent 0, transparent 50%);
+    background-size: 10px 10px;
+  }
+
+  .game-banner-icon { font-size: 40px; }
+
+  .game-banner-text { position: relative; }
+
+  .game-banner-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px; letter-spacing: 0.2em;
+    color: var(--gold); margin-bottom: 4px;
+  }
+
+  .game-banner-desc {
+    font-size: 12px; color: var(--text-muted); font-style: italic;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .product-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .product-card { padding: 18px 14px; }
+    .membership-grid { grid-template-columns: 1fr 1fr; }
+    section { padding: 48px 16px; }
+    .modal-body, .modal-header { padding: 18px; }
+  }
+
+  @media (max-width: 380px) {
+    .product-grid { grid-template-columns: 1fr; }
+    .membership-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── HIGHLIGHT BADGE ─── */
+  .hot-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 7px; letter-spacing: 0.2em;
+    padding: 3px 8px;
+    text-transform: uppercase;
+  }
+
+  .best-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    font-family: 'Cinzel', serif;
+    font-size: 7px; letter-spacing: 0.2em;
+    padding: 3px 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- Persian Background -->
+<div class="persian-bg"></div>
+<div class="persian-medallion pm1"></div>
+<div class="persian-medallion pm2"></div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div>
+    <div class="logo">VURZA</div>
+    <span class="logo-sub">Ultra-Luxury Gaming Store</span>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    <span>◈ Cart</span>
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</header>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-ornament">◈</div>
+  <div class="hero-tag">⟡ Official Gaming Store ⟡</div>
+  <h1 class="hero-title">VURZA</h1>
+  <p class="hero-sub">Where Gaming Meets Gold</p>
+  <div class="hero-line"></div>
+  <div class="scroll-indicator">
+    <span>Explore</span>
+    <div class="scroll-dot"></div>
+  </div>
+</div>
+
+<!-- ─── BGMI SECTION ─── -->
+<section id="bgmi">
+  <div class="section-header">
+    <div class="section-game-badge">⟡ Game Currency ⟡</div>
+    <h2 class="section-title">BGMI — Unknown Cash</h2>
+    <div class="section-divider"><span class="divider-gem">◆</span></div>
+    <p style="font-style:italic; color:var(--text-muted); font-size:14px;">Instant delivery · Premium rates · Trusted service</p>
+  </div>
+
+  <div class="game-banner">
+    <div class="game-banner-icon">🎮</div>
+    <div class="game-banner-text">
+      <div class="game-banner-title">BATTLEGROUNDS MOBILE INDIA</div>
+      <div class="game-banner-desc">Purchase UC directly — lowest prices guaranteed</div>
+    </div>
+  </div>
+
+  <div class="product-grid" id="bgmiGrid"></div>
+
+  <!-- BGMI Memberships -->
+  <div style="margin-top:40px;">
+    <div style="text-align:center; margin-bottom:24px;">
+      <div class="section-game-badge">⟡ Exclusive ⟡</div>
+      <h3 style="font-family:'Cinzel',serif; font-size:18px; letter-spacing:0.15em; color:var(--gold); margin-top:8px;">BGMI Memberships</h3>
+    </div>
+    <div class="membership-grid" id="bgmiMemberships"></div>
+  </div>
+</section>
+
+<div class="ornate-separator">
+  <div class="line"></div>
+  <div class="center">✦ ✦ ✦</div>
+  <div class="line"></div>
+</div>
+
+<!-- ─── FREE FIRE SECTION ─── -->
+<section id="freefire">
+  <div class="section-header">
+    <div class="section-game-badge">⟡ Game Currency ⟡</div>
+    <h2 class="section-title">Free Fire — Diamonds</h2>
+    <div class="section-divider"><span class="divider-gem">◆</span></div>
+    <p style="font-style:italic; color:var(--text-muted); font-size:14px;">Fast top-up · Safe & secure · Verified seller</p>
+  </div>
+
+  <div class="game-banner">
+    <div class="game-banner-icon">🔥</div>
+    <div class="game-banner-text">
+      <div class="game-banner-title">FREE FIRE — GARENA</div>
+      <div class="game-banner-desc">Premium diamond packages at unbeatable prices</div>
+    </div>
+  </div>
+
+  <div class="product-grid" id="ffGrid"></div>
+
+  <!-- FF Memberships -->
+  <div style="margin-top:40px;">
+    <div style="text-align:center; margin-bottom:24px;">
+      <div class="section-game-badge">⟡ Exclusive ⟡</div>
+      <h3 style="font-family:'Cinzel',serif; font-size:18px; letter-spacing:0.15em; color:var(--gold); margin-top:8px;">Free Fire — Memberships & Packs</h3>
+    </div>
+    <div class="membership-grid" id="ffMemberships"></div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-logo">VURZA</div>
+  <div class="footer-tagline">"Where Gaming Meets Gold"</div>
+  <div style="display:flex; justify-content:center; gap:24px; margin-bottom:20px; flex-wrap:wrap;">
+    <a href="https://wa.me/917481930313" target="_blank" style="color:var(--gold); font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.2em; text-decoration:none; opacity:0.7;">📱 WhatsApp Support</a>
+    <span style="color:rgba(212,175,55,0.2);">|</span>
+    <span style="color:var(--gold); font-family:'Cinzel',serif; font-size:10px; letter-spacing:0.2em; opacity:0.7;">💳 UPI: 7481930313@mbk</span>
+  </div>
+  <div class="footer-bottom">© 2025 VURZA · Ultra-Luxury Gaming Store · All Rights Reserved</div>
+</footer>
+
+<!-- ─── CART SIDEBAR ─── -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div class="cart-title">Your Order</div>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="empty-icon">◈</div>
+      <div>Your cart is empty</div>
+      <div style="font-size:12px; margin-top:8px; opacity:0.6;">Add items to proceed</div>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">TOTAL AMOUNT</span>
+      <span class="cart-total-amount" id="cartTotal">₹0</span>
+    </div>
+    <button class="checkout-btn" onclick="openPayment()">Proceed to Payment ◆</button>
+  </div>
+</div>
+
+<!-- ─── PAYMENT MODAL ─── -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Payment</div>
+      <button class="close-modal" onclick="closePayment()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Order Summary -->
+      <div class="modal-order-summary">
+        <div class="modal-order-label">◆ ORDER SUMMARY</div>
+        <div class="modal-order-items" id="modalOrderItems"></div>
+        <div class="modal-total">
+          <span class="modal-total-label">TOTAL</span>
+          <span class="modal-total-amount" id="modalTotal">₹0</span>
+        </div>
+      </div>
+
+      <!-- QR Code -->
+      <div class="qr-section">
+        <div class="qr-label">◆ Scan to Pay ◆</div>
+        <div class="qr-frame">
+          <!-- 
+            ═══════════════════════════════════════════
+            SWAP INSTRUCTION: Replace the placeholder
+            below with your actual QR image tag:
+            <img src="1000005098.png" class="qr-image">
+            ═══════════════════════════════════════════
+          -->
+          <div class="qr-placeholder">
+            <div class="qr-placeholder-icon">📱</div>
+            <div class="qr-placeholder-text">Place your QR code image<br>(1000005098.png)<br>here</div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:var(--text-muted); margin-top:10px; font-style:italic;">Scan with any UPI app</div>
+      </div>
+
+      <!-- UPI Copy -->
+      <div class="upi-box">
+        <div class="upi-info">
+          <div class="upi-label">◆ UPI ID</div>
+          <div class="upi-id">7481930313@mbk</div>
+        </div>
+        <button class="copy-btn" id="copyBtn" onclick="copyUPI()"><span>COPY</span></button>
+      </div>
+
+      <!-- Steps -->
+      <ul class="payment-steps">
+        <li><span class="step-num">①</span><span>Open any UPI app (GPay, PhonePe, Paytm, etc.)</span></li>
+        <li><span class="step-num">②</span><span>Scan the QR code above OR enter UPI ID manually</span></li>
+        <li><span class="step-num">③</span><span>Pay the exact amount shown in Order Summary</span></li>
+        <li><span class="step-num">④</span><span>Take a screenshot of the payment confirmation</span></li>
+        <li><span class="step-num">⑤</span><span>Click the WhatsApp button below and send your order details + screenshot</span></li>
+      </ul>
+
+      <!-- WhatsApp -->
+      <button class="whatsapp-btn" onclick="sendWhatsApp()">
+        <span style="font-size:20px;">💬</span>
+        <span>Send Order on WhatsApp</span>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───
+const bgmiProducts = [
+  { id: 'b1', name: '120 UC', price: 75, label: 'Starter Pack' },
+  { id: 'b2', name: '650 UC', price: 380, label: 'Popular', badge: 'hot' },
+  { id: 'b3', name: '1320 UC', price: 750, label: 'Value Pack', badge: 'best' },
+  { id: 'b4', name: '3600 UC', price: 1900, label: 'Elite Pack' },
+  { id: 'b5', name: '7700 UC', price: 3800, label: 'Master Pack' },
+  { id: 'b6', name: '16,200 UC', price: 7500, label: 'Legend Pack', badge: 'best' },
+];
+
+const bgmiMembershipData = [
+  { id: 'bm1', icon: '👑', name: 'Prime', desc: 'Daily UC rewards, exclusive skins & bonuses', price: 380 },
+  { id: 'bm2', icon: '💎', name: 'Prime Plus', desc: 'All Prime benefits + extra daily UC & perks', price: 580 },
+];
+
+const ffProducts = [
+  { id: 'f1', name: '200 Diamonds', price: 80, label: 'Starter Pack' },
+  { id: 'f2', name: '620 Diamonds', price: 240, label: 'Flame Pack', badge: 'hot' },
+  { id: 'f3', name: '1040 Diamonds', price: 400, label: 'Blaze Pack' },
+  { id: 'f4', name: '2120 Diamonds', price: 800, label: 'Inferno Pack', badge: 'best' },
+  { id: 'f5', name: '4360 Diamonds', price: 1600, label: 'Phoenix Pack' },
+  { id: 'f6', name: '11,200 Diamonds', price: 4000, label: 'Legend Pack', badge: 'best' },
+];
+
+const ffMembershipData = [
+  { id: 'fm1', icon: '🔥', name: 'Weekly Membership', desc: 'Daily diamonds + exclusive member costume', price: 120 },
+  { id: 'fm2', icon: '⚡', name: 'Monthly Membership', desc: 'Daily diamonds + monthly exclusive rewards', price: 350 },
+  { id: 'fm3', icon: '🌟', name: 'Level Up Pass', desc: 'Extra XP booster + cosmetic rewards each level', price: 200 },
+  { id: 'fm4', icon: '🏆', name: 'Booyah Pass', desc: 'Seasonal pass with exclusive skins & challenges', price: 450 },
+];
+
+// ─── CART STATE ───
+let cart = {};
+
+function getCartList() {
+  return Object.values(cart).filter(i => i.qty > 0);
+}
+
+// ─── RENDER PRODUCTS ───
+function renderProducts(products, containerId, game) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = products.map(p => `
+    <div class="product-card" id="card-${p.id}">
+      ${p.badge === 'hot' ? '<div class="hot-badge">🔥 Popular</div>' : ''}
+      ${p.badge === 'best' ? '<div class="best-badge">⭐ Best Value</div>' : ''}
+      <div class="card-corner tl"></div>
+      <div class="card-corner br"></div>
+      <div class="product-label">${game}</div>
+      <div class="product-amount">${p.name}</div>
+      <div class="product-desc">${p.label}</div>
+      <div class="product-price"><span class="currency">₹</span>${p.price.toLocaleString()}</div>
+      <button class="add-btn" id="btn-${p.id}" onclick="addToCart('${p.id}', '${p.name}', ${p.price}, '${game}')">
+        <span>+ Add to Cart</span>
+      </button>
+    </div>
+  `).join('');
+}
+
+function renderMemberships(memberships, containerId, game) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = memberships.map(m => `
+    <div class="membership-card">
+      <div class="membership-icon">${m.icon}</div>
+      <div class="membership-name">${m.name}</div>
+      <div class="membership-desc">${m.desc}</div>
+      <div class="membership-price">₹${m.price.toLocaleString()}</div>
+      <button class="mem-add-btn" id="btn-${m.id}" onclick="addToCart('${m.id}', '${m.name}', ${m.price}, '${game}')">
+        <span>+ Add to Cart</span>
+      </button>
+    </div>
+  `).join('');
+}
+
+// ─── CART LOGIC ───
+function addToCart(id, name, price, game) {
+  if (cart[id]) {
+    cart[id].qty++;
+  } else {
+    cart[id] = { id, name, price, game, qty: 1 };
+  }
+
+  const btn = document.getElementById('btn-' + id);
+  if (btn) {
+    btn.classList.add('added');
+    btn.querySelector('span').textContent = '✓ Added';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.querySelector('span').textContent = '+ Add to Cart';
+    }, 1500);
+  }
+
+  updateCartUI();
+  showToast(`${name} added to cart`);
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartUI();
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  updateCartUI();
+}
+
+function updateCartUI() {
+  const items = getCartList();
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = items.reduce((s, i) => s + i.qty, 0);
+
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString();
+
+  const container = document.getElementById('cartItems');
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="cart-empty">
+        <div class="empty-icon">◈</div>
+        <div>Your cart is empty</div>
+        <div style="font-size:12px; margin-top:8px; opacity:0.6;">Add items to proceed</div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = items.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-game">${item.game}</div>
+      </div>
+      <div class="cart-item-qty">
+        <button class="qty-btn" onclick="changeQty('${item.id}', -1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+      </div>
+      <div class="cart-item-price">₹${(item.price * item.qty).toLocaleString()}</div>
+      <button class="remove-item" onclick="removeFromCart('${item.id}')">✕</button>
+    </div>
+  `).join('');
+}
+
+// ─── CART TOGGLE ───
+function toggleCart() {
+  document.getElementById('cartOverlay').classList.toggle('open');
+  document.getElementById('cartSidebar').classList.toggle('open');
+}
+
+// ─── PAYMENT MODAL ───
+function openPayment() {
+  const items = getCartList();
+  if (items.length === 0) { showToast('Add items to cart first'); return; }
+
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+
+  document.getElementById('modalOrderItems').innerHTML = items.map(i =>
+    `<div class="modal-order-item"><span>${i.name} × ${i.qty}</span><span>₹${(i.price * i.qty).toLocaleString()}</span></div>`
+  ).join('');
+
+  document.getElementById('modalTotal').textContent = '₹' + total.toLocaleString();
+
+  toggleCart();
+  document.getElementById('paymentModal').classList.add('open');
+}
+
+function closePayment() {
+  document.getElementById('paymentModal').classList.remove('open');
+}
+
+document.getElementById('paymentModal').addEventListener('click', function(e) {
+  if (e.target === this) closePayment();
+});
+
+// ─── COPY UPI ───
+function copyUPI() {
+  navigator.clipboard.writeText('7481930313@mbk').then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✓ COPIED';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'COPY'; btn.classList.remove('copied'); }, 2000);
+    showToast('UPI ID copied!');
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = '7481930313@mbk';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('UPI ID copied!');
+  });
+}
+
+// ─── WHATSAPP ───
+function sendWhatsApp() {
+  const items = getCartList();
+  if (items.length === 0) { showToast('Add items to cart first'); return; }
+
+  const total = items.reduce((s, i) => s + i.price * i.qty, 0);
+  const orderLines = items.map(i => `• ${i.name} (${i.game}) × ${i.qty} = ₹${(i.price * i.qty).toLocaleString()}`).join('\n');
+
+  const msg = `*🎮 VURZA — New Order*\n\n${orderLines}\n\n*Total: ₹${total.toLocaleString()}*\n\n✅ Payment sent to UPI: 7481930313@mbk\n📸 Screenshot attached below`;
+
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/917481930313?text=${encoded}`, '_blank');
+}
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ─── INIT ───
+renderProducts(bgmiProducts, 'bgmiGrid', 'BGMI');
+renderMemberships(bgmiMembershipData, 'bgmiMemberships', 'BGMI');
+renderProducts(ffProducts, 'ffGrid', 'Free Fire');
+renderMemberships(ffMembershipData, 'ffMemberships', 'Free Fire');
+</script>
+</body>
+</html>
